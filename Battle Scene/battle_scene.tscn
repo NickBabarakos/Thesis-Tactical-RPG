@@ -1,0 +1,205 @@
+[gd_scene load_steps=8 format=3 uid="uid://cigknjjn3y0ua"]
+
+[ext_resource type="Texture2D" uid="uid://d2018jkrli7pw" path="res://Battle Scene/New_Background.png" id="1_ahuig"]
+[ext_resource type="Script" uid="uid://bmtf3x5e1n8fd" path="res://Battle Scene/Root.cs" id="1_rakm7"]
+[ext_resource type="Texture2D" uid="uid://bu2e474sh8wsg" path="res://Battle Scene/UI.png" id="2_h077n"]
+[ext_resource type="Texture2D" uid="uid://dleekwlptduun" path="res://Battle Scene/Monster 1.png" id="3_bga4j"]
+[ext_resource type="FontFile" uid="uid://cakwxvolnnb7v" path="res://Battle Scene/alagard.ttf" id="4_ve0ry"]
+[ext_resource type="Script" uid="uid://cwe6opm40ql6s" path="res://Battle Scene/character.cs" id="6_iloge"]
+[ext_resource type="Script" uid="uid://cccitlany5upr" path="res://Battle Scene/turnManager.cs" id="7_hxn0f"]
+
+[node name="root" type="Node2D"]
+script = ExtResource("1_rakm7")
+
+[node name="background" type="TextureRect" parent="."]
+texture_filter = 1
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_ahuig")
+
+[node name="ui" type="TextureRect" parent="background"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_h077n")
+
+[node name="dialogue" type="Label" parent="background/ui"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 7.0
+offset_right = 202.0
+offset_bottom = 34.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_ve0ry")
+theme_override_font_sizes/font_size = 8
+autowrap_mode = 2
+
+[node name="sword_slash" type="Label" parent="background/ui"]
+visible = false
+layout_mode = 0
+offset_left = 39.0
+offset_top = 6.0
+offset_right = 90.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_ve0ry")
+theme_override_font_sizes/font_size = 7
+text = "SWORD SLASH"
+
+[node name="shield" type="Label" parent="background/ui"]
+visible = false
+layout_mode = 0
+offset_left = 39.0
+offset_top = 19.0
+offset_right = 67.0
+offset_bottom = 29.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_ve0ry")
+theme_override_font_sizes/font_size = 7
+text = "SHIELD"
+
+[node name="hydro_pump" type="Label" parent="background/ui"]
+visible = false
+layout_mode = 0
+offset_left = 90.0
+offset_top = 6.0
+offset_right = 130.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_ve0ry")
+theme_override_font_sizes/font_size = 7
+text = "HYDRO PUMP"
+
+[node name="arrows" type="Label" parent="background/ui"]
+visible = false
+layout_mode = 0
+offset_left = 90.0
+offset_top = 19.0
+offset_right = 118.0
+offset_bottom = 29.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_ve0ry")
+theme_override_font_sizes/font_size = 7
+text = "ARROWS"
+
+[node name="fire_pierce" type="Label" parent="background/ui"]
+visible = false
+layout_mode = 0
+offset_left = 138.0
+offset_top = 6.0
+offset_right = 181.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_ve0ry")
+theme_override_font_sizes/font_size = 7
+text = "FIRE PIERCE"
+
+[node name="electric_hammer" type="Label" parent="background/ui"]
+visible = false
+layout_mode = 0
+offset_left = 138.0
+offset_top = 19.0
+offset_right = 202.0
+offset_bottom = 29.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_ve0ry")
+theme_override_font_sizes/font_size = 7
+text = "ELECTRIC HAMMER"
+
+[node name="player_name" type="Label" parent="background/ui"]
+layout_mode = 0
+offset_left = 54.0
+offset_top = 116.0
+offset_right = 103.0
+offset_bottom = 131.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("4_ve0ry")
+text = "NICK"
+horizontal_alignment = 1
+
+[node name="bot_name" type="Label" parent="background/ui"]
+layout_mode = 0
+offset_left = 135.0
+offset_top = 116.0
+offset_right = 184.0
+offset_bottom = 131.0
+theme_override_colors/font_color = Color(0.858824, 0.333333, 0.333333, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("4_ve0ry")
+text = "Wally"
+horizontal_alignment = 1
+
+[node name="player_hp_1" type="Label" parent="background/ui"]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 137.0
+offset_right = 75.0
+offset_bottom = 152.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("4_ve0ry")
+text = "0"
+horizontal_alignment = 1
+
+[node name="player_hp_2" type="Label" parent="background/ui"]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 137.0
+offset_right = 94.0
+offset_bottom = 152.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("4_ve0ry")
+text = "0"
+horizontal_alignment = 1
+
+[node name="bot_hp_1" type="Label" parent="background/ui"]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 137.0
+offset_right = 155.0
+offset_bottom = 152.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("4_ve0ry")
+text = "0"
+horizontal_alignment = 1
+
+[node name="bot_hp_2" type="Label" parent="background/ui"]
+layout_mode = 0
+offset_left = 164.0
+offset_top = 137.0
+offset_right = 174.0
+offset_bottom = 152.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("4_ve0ry")
+text = "0"
+horizontal_alignment = 1
+
+[node name="bot_action" type="Button" parent="background/ui"]
+visible = false
+layout_mode = 0
+offset_left = 136.0
+offset_top = 88.0
+offset_right = 189.0
+offset_bottom = 108.0
+theme_override_fonts/font = ExtResource("4_ve0ry")
+theme_override_font_sizes/font_size = 12
+text = "Firebolt"
+
+[node name="monster" type="Sprite2D" parent="background"]
+texture_filter = 1
+position = Vector2(125, 70)
+texture = ExtResource("3_bga4j")
+
+[node name="character" type="Node" parent="."]
+script = ExtResource("6_iloge")
+
+[node name="turnManager" type="Node" parent="."]
+script = ExtResource("7_hxn0f")

@@ -1,0 +1,149 @@
+[
+	{
+		"Number": 101,
+		"Name": "Sword Slash",
+		"Power": 2,
+		"Delay": 1,
+		"Type":	7,
+		"dialogue1": "SLASHES",
+		"dialogue2": "WITH THEIR SWORD!" 
+	},
+	{
+		"Number": 102,
+		"Name": "Hydro Pump" ,
+		"Power": 4,
+		"Delay": 1,
+		"Type": 29,
+		"dialogue1": "HITS",
+		"dialogue2": "WITH HYDRO PUMP!"
+	},
+	{
+		"Number": 103,
+		"Name": "Arrows",
+		"Power": 1,
+		"Delay": 1,
+		"Type": 68,
+		"dialogue1": "SHOOTS",
+		"dialogue2": "TIMES WITH ARROWS!"
+	},
+	{
+		"Number": 104,
+		"Name": "Fire Pierce",
+		"Power": 6,
+		"Delay": 2,
+		"Type": 18,
+		"dialogue1": "PIERCES",
+		"dialogue2": "WITH THEIR FIERY BLADE!"
+	},
+	{
+		"Number": 105,
+		"Name": "Electric Hammer",
+		"Power": 6,
+		"Delay": 2,
+		"Type":	49,
+		"dialogue1": "SMASHES",
+		"dialogue2": "WITH THEIR THUNDER HAMMER!"
+	},
+	{
+		"Number": 106,
+		"Name": "Firebolt",
+		"Power": 5,
+		"Delay": 2,
+		"Type": 1,
+		"dialogue1": "BURNS",
+		"dialogue2": "WITH A FIREBOLT!"
+	},
+	{
+		"Number": 107,
+		"Name": "Thunderbolt" ,
+		"Power": 5,
+		"Delay": 2,
+		"Type":	4,
+		"dialogue1": "STRIKES",
+		"dialogue2": "WITH A THUNDERBOLT!" 
+	},
+	{
+		"Number": 108,
+		"Name": "Rock Smash" ,
+		"Power": 5,
+		"Delay": 2,
+		"Type": 59,
+		"dialogue1": "SMASHES",
+		"dialogue2": "WITH ROCKS!" 
+
+	},
+	{
+		"Number": 109,
+		"Name": "Thorns",
+		"Power": 5,
+		"Delay": 2,
+		"Type": 38, 
+		"dialogue1": "PIERCES",
+		"dialogue2": "WITH THORNS!" 
+
+	},
+	{
+		"Number": 110,
+		"Name": "Vines",
+		"Power": 5,
+		"Delay": 1,
+		"Type": 38,
+		"dialogue1": "PIERCES",
+		"dialogue2": "WITH VINES!" 
+	},
+	{
+		"Number": 111,
+		"Name": "Whip",
+		"Power": 2,
+		"Delay": 1,
+		"Type":	7,
+		"dialogue1": "SLASHES",
+		"dialogue2": "WITH THEIR WHIP!" 
+	},
+	{
+		"Number": 112,
+		"Name": "Stone Paunch" ,
+		"Power": 6,
+		"Delay": 1,
+		"Type":	59,
+		"dialogue1": "PUNCHES",
+		"dialogue2": "WITH THEIR STONE FISTS!" 
+
+	},
+	{
+		"Number": 113,
+		"Name": "Magnitude",
+		"Power": 6,
+		"Delay": 1,
+		"Type": 5, 
+		"dialogue1": "MAKES",
+		"dialogue2": "FALL BECAUSE OF THE MAGNITUDE THEY CAUSE!"
+	},
+	{
+		"Number": 114,
+		"Name": "Tackle",
+		"Power": 5,
+		"Delay": 1,
+		"Type":	9,
+		"dialogue1": "TACKLES",
+		"dialogue2": "WITH THEIR BODY!"
+	},
+	{
+		"Number": 115,
+		"Name": "Watergun",
+		"Power": 7,
+		"Delay": 1,
+		"Type": 29,
+		"dialogue1": "HITS",
+		"dialogue2": "WITH WATERGUN!"
+	},
+	{
+		"Number": 116,
+		"Name": "Flames",
+		"Power": 7,
+		"Delay": 1,
+		"Type":	1,
+		"dialogue1": "BURNS",
+		"dialogue2": "WITH FLAMES!"
+	}
+]

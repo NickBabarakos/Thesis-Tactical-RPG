@@ -1,0 +1,19 @@
+# Godot 4+ specific ignores
+.godot/
+.mono/
+/android/
+
+*.cs.uid 
+*.csproj.old
+*.csproj.user
+*.sln.DotSettings.user
+bin/
+obj/
+.vs/
+.vscode/
+
+export_presets.cfg
+*.pck
+*.export_presets
+*.zip
+

@@ -1,0 +1,84 @@
+[gd_scene load_steps=5 format=3 uid="uid://cruxaoolyfbsi"]
+
+[ext_resource type="Script" uid="uid://ce77vnmht0lbq" path="res://Starting Menu/starting_screen.cs" id="1_aqqwf"]
+[ext_resource type="Texture2D" uid="uid://cyy7lfxrsmijb" path="res://Starting Menu/Ttile_Screen_Background.png" id="2_y3ln7"]
+[ext_resource type="FontFile" uid="uid://cakwxvolnnb7v" path="res://Battle Scene/alagard.ttf" id="3_mgldb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vbgqd"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="starting_screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_aqqwf")
+
+[node name="background" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_y3ln7")
+
+[node name="UI" type="TextureRect" parent="background"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="press_enter" type="Label" parent="background/UI"]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 114.0
+offset_right = 168.0
+offset_bottom = 129.0
+theme_override_fonts/font = ExtResource("3_mgldb")
+theme_override_font_sizes/font_size = 16
+text = "PRESS ENTER"
+
+[node name="new_game" type="Label" parent="background/UI"]
+visible = false
+layout_mode = 0
+offset_left = 85.0
+offset_top = 102.0
+offset_right = 155.0
+offset_bottom = 117.0
+theme_override_fonts/font = ExtResource("3_mgldb")
+theme_override_font_sizes/font_size = 14
+text = "NEW GAME"
+
+[node name="exit_game" type="Label" parent="background/UI"]
+visible = false
+layout_mode = 0
+offset_left = 84.0
+offset_top = 122.0
+offset_right = 155.0
+offset_bottom = 137.0
+theme_override_fonts/font = ExtResource("3_mgldb")
+theme_override_font_sizes/font_size = 14
+text = "EXIT GAME"
+
+[node name="name_input" type="LineEdit" parent="background/UI"]
+visible = false
+layout_mode = 0
+offset_left = 83.0
+offset_top = 75.0
+offset_right = 164.0
+offset_bottom = 99.0
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_mgldb")
+theme_override_styles/normal = SubResource("StyleBoxFlat_vbgqd")
+
+[node name="selection_text" type="Label" parent="background/UI"]
+visible = false
+layout_mode = 0
+offset_left = 30.0
+offset_top = 52.0
+offset_right = 219.0
+offset_bottom = 64.0
+theme_override_fonts/font = ExtResource("3_mgldb")
+theme_override_font_sizes/font_size = 12
+clip_text = true

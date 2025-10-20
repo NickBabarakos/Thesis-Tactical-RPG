@@ -1,0 +1,124 @@
+[
+	{
+		"Number": 201 ,
+		"Name": "Shield" ,
+		"Stat": "DEF",
+		"Target": "Player",
+		"Power": 3,
+		"Counter": 0,
+		"dialogue1": "RAISE THEIR SHIELD.",
+		"dialogue2": "'S DEF RAISES BY 3.",
+		"dialogue3": "YOUR SHIELD IS ALREADY UP!"
+	},
+	{
+		"Number": 202 ,
+		"Name": "Encouragement Spell" ,
+		"Stat": "ATK",
+		"Target": "Player",
+		"Power": 3,
+		"Counter": 1,
+		"dialogue1": "USES THE ENCOURAGEMENT SPELL!",
+		"dialogue2": "'S ATK RAISES BY 3.",
+		"dialogue3": "THE PLAYER'S ATK IS ALREADY RAISED!"
+
+	},
+	{
+		"Number": 203 ,
+		"Name": "Intimidation Spell" ,
+		"Stat": "ATK",
+		"Target": "Enemy",
+		"Power": -3,
+		"Counter": 2,
+		"dialogue1": "USES THE INTIMIDATION SPELL.",
+		"dialogue2": "'S ATK STAT DECREASES BY 3.",
+		"dialogue3": "THE OPPONENT'S ATK IS ALREADY DECREASED!"
+	},
+	{
+		"Number": 204 , 
+		"Name": "Distraction Spell" ,
+		"Stat": "DEF",
+		"Target": "Enemy",
+		"Power": -3,
+		"Counter": 3,
+		"dialogue1": "USES THE DISTRACTION SPELL.",
+		"dialogue2": "'S DEF STAT DECREASES BY 3.",
+		"dialogue3": "THE OPPONENT'S DEF IS ALREADY DECREASED!"
+	},
+	{
+		"Number": 205 ,
+		"Name": "Evanescence" ,
+		"Stat": "SPD",
+		"Target": "Enemy",
+		"Power": 3,
+		"Counter": 4,
+		"dialogue1": "USES EVANESCENCE.",
+		"dialogue2": "'S SPD STAT RAISES BY 3.",
+		"dialogue3": "THE OPPONENT'S SPD IS ALREADY RAISED!"
+	},
+	{
+		"Number": 206 ,
+		"Name": "Harden" ,
+		"Stat": "DEF SP_DEF",
+		"Target": "Enemy",
+		"Power": 2,
+		"Counter": 4,
+		"dialogue1": "USES HARDEN.",
+		"dialogue2": "'S DEF AND SP.DEF STATS RAISE BY 2 EACH.",
+		"dialogue3": "THE OPPONENT'S DEF AND SP.DEF STATS ARE ALREADY RAISED!"
+	},
+	{
+		"Number": 207 ,
+		"Name": "Rage" ,
+		"Stat": "ATK SP_ATK",
+		"Target": "Enemy",
+		"Power": 2,
+		"Counter": 4,
+		"dialogue1": "USES RAGE.",
+		"dialogue2": "'S ATK AND SP.ATK STAT RAISE BY 2 EACH.",
+		"dialogue3": "THE OPPONENT'S ATK AND SP.ATK STATS ARE ALREADY RAISED!"
+	},
+	{
+		"Number": 208 ,
+		"Name": "Inner Power" ,
+		"Stat": "SP_ATK SPD",
+		"Target": "Enemy",
+		"Power": 2,
+		"Counter": 4,
+		"dialogue1": "USES INNER POWER.",
+		"dialogue2": "'S SP_ATK AND SPD STATS RAISE BY 2 EACH.",
+		"dialogue3": "THE OPPONENT'S SP.ATK AND SPD ARE ALREADY RAISED!"
+	},
+	{
+		"Number": 301 ,
+		"Name": "Heal Player" ,
+		"Stat": "HP",
+		"Target": "Player",
+		"Power": 0,
+		"Counter": -1,
+		"dialogue1": "HEALS",
+		"dialogue2": "REGAINS",
+		"dialogue3": ""
+	},
+	{
+		"Number": 302 ,
+		"Name": "Heal Helper" ,
+		"Stat": "HP",
+		"Target": "Helper",
+		"Power": 0,
+		"Counter": -1,
+		"dialogue1": "HEALS THEMSELVES",
+		"dialogue2": "REGAINS",
+		"dialogue3": ""
+	},
+	{
+		"Number": 303 ,
+		"Name": "Heal Enemy" ,
+		"Stat": "HP",
+		"Target": "Enemy",
+		"Power": 0,
+		"Counter": -1,
+		"dialogue1": "HEALS THEMSELVES",
+		"dialogue2": "REGAINS",
+		"dialogue3": ""
+	}
+]
