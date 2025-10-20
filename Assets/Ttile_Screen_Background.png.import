@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bu2e474sh8wsg"
-path="res://.godot/imported/UI.png-efcdfec4d9eb4753f7a3022f32bdb41a.ctex"
+uid="uid://cyy7lfxrsmijb"
+path="res://.godot/imported/Ttile_Screen_Background.png-8aa64613929a4affa0d8d79011a609df.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Battle Scene/UI.png"
-dest_files=["res://.godot/imported/UI.png-efcdfec4d9eb4753f7a3022f32bdb41a.ctex"]
+source_file="res://Assets/Ttile_Screen_Background.png"
+dest_files=["res://.godot/imported/Ttile_Screen_Background.png-8aa64613929a4affa0d8d79011a609df.ctex"]
 
 [params]
 

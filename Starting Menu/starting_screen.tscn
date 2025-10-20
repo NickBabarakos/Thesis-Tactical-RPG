@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cruxaoolyfbsi"]
 
 [ext_resource type="Script" uid="uid://ce77vnmht0lbq" path="res://Starting Menu/starting_screen.cs" id="1_aqqwf"]
-[ext_resource type="Texture2D" uid="uid://cyy7lfxrsmijb" path="res://Starting Menu/Ttile_Screen_Background.png" id="2_y3ln7"]
+[ext_resource type="Texture2D" uid="uid://cyy7lfxrsmijb" path="res://Assets/Ttile_Screen_Background.png" id="2_yd6fb"]
 [ext_resource type="FontFile" uid="uid://cakwxvolnnb7v" path="res://Battle Scene/alagard.ttf" id="3_mgldb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vbgqd"]
@@ -21,7 +21,7 @@ texture_filter = 1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("2_y3ln7")
+texture = ExtResource("2_yd6fb")
 
 [node name="UI" type="TextureRect" parent="background"]
 layout_mode = 0

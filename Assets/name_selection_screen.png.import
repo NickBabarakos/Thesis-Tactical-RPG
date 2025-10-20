@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dleekwlptduun"
-path="res://.godot/imported/Monster 1.png-e4b8b9043bd55f0c5e53ace7e052012c.ctex"
+uid="uid://dr2quyecpwyd8"
+path="res://.godot/imported/name_selection_screen.png-57ca1f51899f9526425c8173dd1c8a86.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Battle Scene/Monster 1.png"
-dest_files=["res://.godot/imported/Monster 1.png-e4b8b9043bd55f0c5e53ace7e052012c.ctex"]
+source_file="res://Assets/name_selection_screen.png"
+dest_files=["res://.godot/imported/name_selection_screen.png-57ca1f51899f9526425c8173dd1c8a86.ctex"]
 
 [params]
 

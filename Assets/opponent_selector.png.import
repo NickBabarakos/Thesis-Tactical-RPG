@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyy7lfxrsmijb"
-path="res://.godot/imported/Ttile_Screen_Background.png-43144ffc502df714ff805da77728d043.ctex"
+uid="uid://44n65ib30k8v"
+path="res://.godot/imported/opponent_selector.png-67ea200d1e109e218e7446eb2cde018c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Starting Menu/Ttile_Screen_Background.png"
-dest_files=["res://.godot/imported/Ttile_Screen_Background.png-43144ffc502df714ff805da77728d043.ctex"]
+source_file="res://Assets/opponent_selector.png"
+dest_files=["res://.godot/imported/opponent_selector.png-67ea200d1e109e218e7446eb2cde018c.ctex"]
 
 [params]
 

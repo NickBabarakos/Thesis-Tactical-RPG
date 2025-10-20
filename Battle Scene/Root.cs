@@ -63,10 +63,10 @@ public partial class Root : Node
 		helper_hp_1 = GetNode<Label>("background/ui/bot_hp_1");
 		helper_hp_2 = GetNode<Label>("background/ui/bot_hp_2");
 		monsterSprite = GetNode<Sprite2D>("background/monster");
-		Sprite1 = GD.Load<Texture2D>("res://Battle Scene/Monster 1.png");
-		Sprite2 = GD.Load<Texture2D>("res://Battle Scene/Monster 2.png");
-		Sprite3 = GD.Load<Texture2D>("res://Battle Scene/Monster 3.png");
-		Sprite4 = GD.Load<Texture2D>("res://Battle Scene/Monster 4(old).png");
+		Sprite1 = GD.Load<Texture2D>("res://Assets/Monster 1.png");
+		Sprite2 = GD.Load<Texture2D>("res://Assets/Monster 2.png");
+		Sprite3 = GD.Load<Texture2D>("res://Assets/Monster 3.png");
+		Sprite4 = GD.Load<Texture2D>("res://Assets/Monster 4(old).png");
 		helper_action = GetNode<Button>("background/ui/bot_action");
 		helper_action.FocusMode = Control.FocusModeEnum.None;
 

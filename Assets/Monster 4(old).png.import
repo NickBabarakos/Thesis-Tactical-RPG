@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://combrohk55syy"
-path="res://.godot/imported/Monster 3.png-ade73cb5fd5066e34104f38ed2987b10.ctex"
+uid="uid://b0am50b5tabln"
+path="res://.godot/imported/Monster 4(old).png-3e055d36328644f397e954e34f7fb657.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Battle Scene/Monster 3.png"
-dest_files=["res://.godot/imported/Monster 3.png-ade73cb5fd5066e34104f38ed2987b10.ctex"]
+source_file="res://Assets/Monster 4(old).png"
+dest_files=["res://.godot/imported/Monster 4(old).png-3e055d36328644f397e954e34f7fb657.ctex"]
 
 [params]
 

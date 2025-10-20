@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://chaywxayfn5d0"
-path="res://.godot/imported/Opponent Screen.png-4630a9dabf38d6fdbefe0d88277dba41.ctex"
+path="res://.godot/imported/Opponent Screen.png-e5d5e246f92f836f7d9fa3a0f59dcbb1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Enemy Selection/Opponent Screen.png"
-dest_files=["res://.godot/imported/Opponent Screen.png-4630a9dabf38d6fdbefe0d88277dba41.ctex"]
+source_file="res://Assets/Opponent Screen.png"
+dest_files=["res://.godot/imported/Opponent Screen.png-e5d5e246f92f836f7d9fa3a0f59dcbb1.ctex"]
 
 [params]
 

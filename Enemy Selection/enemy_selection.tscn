@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://b5wfjcda1us01"]
 
 [ext_resource type="Script" uid="uid://cufnf1p02vx74" path="res://Enemy Selection/enemy_selection.cs" id="1_0rru0"]
-[ext_resource type="Texture2D" uid="uid://chaywxayfn5d0" path="res://Enemy Selection/Opponent Screen.png" id="1_iltl3"]
-[ext_resource type="Texture2D" uid="uid://44n65ib30k8v" path="res://Enemy Selection/opponent_selector.png" id="3_we6d4"]
+[ext_resource type="Texture2D" uid="uid://chaywxayfn5d0" path="res://Assets/Opponent Screen.png" id="2_qdynn"]
+[ext_resource type="Texture2D" uid="uid://44n65ib30k8v" path="res://Assets/opponent_selector.png" id="3_x4agm"]
 [ext_resource type="FontFile" uid="uid://cakwxvolnnb7v" path="res://Battle Scene/alagard.ttf" id="4_esy0s"]
 
 [node name="enemy_selection" type="Control"]
@@ -19,7 +19,7 @@ texture_filter = 1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("1_iltl3")
+texture = ExtResource("2_qdynn")
 
 [node name="enemy_selector" type="TextureRect" parent="background"]
 texture_filter = 1
@@ -28,7 +28,7 @@ offset_left = 18.0
 offset_top = 4.0
 offset_right = 86.0
 offset_bottom = 66.0
-texture = ExtResource("3_we6d4")
+texture = ExtResource("3_x4agm")
 
 [node name="choose_opponent" type="Label" parent="background"]
 layout_mode = 0

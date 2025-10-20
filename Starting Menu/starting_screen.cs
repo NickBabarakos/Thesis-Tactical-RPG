@@ -40,7 +40,7 @@ public partial class starting_screen : Node
 		name_input = GetNode<LineEdit>("background/UI/name_input");
 		selection_text = GetNode<Label>("background/UI/selection_text");
 		selection_text.Text = "ENTER THE NAME OF YOUR HERO:";
-		selection_screen = GD.Load<Texture2D>("C:/Users/User/Desktop/Godot/Projects/Untitled Game V0.2/untitled-v0.2/Starting Menu/name_selection_screen.png");
+		selection_screen = GD.Load<Texture2D>("res://Assets/name_selection_screen.png");
 
 
 

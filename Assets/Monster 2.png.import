@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://44n65ib30k8v"
-path="res://.godot/imported/opponent_selector.png-14d4192372b1bc213f94649f8250de28.ctex"
+uid="uid://b52mj85evwjed"
+path="res://.godot/imported/Monster 2.png-b09b17e3d1e5d03992c6d988e9187c40.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Enemy Selection/opponent_selector.png"
-dest_files=["res://.godot/imported/opponent_selector.png-14d4192372b1bc213f94649f8250de28.ctex"]
+source_file="res://Assets/Monster 2.png"
+dest_files=["res://.godot/imported/Monster 2.png-b09b17e3d1e5d03992c6d988e9187c40.ctex"]
 
 [params]
 
