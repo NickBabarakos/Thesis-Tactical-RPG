@@ -5,7 +5,8 @@ public partial class turnManager : Node
 {
 	public Root root;
 	public int [] counter = {0,0,0,0,0}; //Shield, ATKBoost, ATKDebuf, DEFDebuf, EnemyCounter
-	public int [,] enemyAction = { {110,111,205}, {112,113,206}, {114,115,207}, {116,303,208}};
+	public int[,] enemyAction = { { 110, 111, 205 }, { 112, 113, 206 }, { 114, 115, 207 }, { 116, 303, 208 } };
+	public UIManager uim;
 
 	public enum State{
 		NS = 0,     //No State
@@ -38,6 +39,7 @@ public partial class turnManager : Node
 	public override void _Ready()
 	{
 		root = GetTree().CurrentScene as Root;
+		uim = GetNode<UIManager>($"../background/ui/UIManager");
 		
 	}
 	public void TurnHandler(){
@@ -45,7 +47,7 @@ public partial class turnManager : Node
 		if (currentTurn == Turn.PT && losses == Losses.NL)
 		{
 			currentTurn = Turn.HT;
-			root.dialogue.Text = $"IT'S {root.helper.Name}'s TURN!";
+			uim.dialogueBoxText($"IT'S {root.helper.Name}'s TURN!");
 		}
 		else if (currentTurn == Turn.HT && losses == Losses.NL || currentTurn == Turn.PT && losses == Losses.HL)
 		{
@@ -59,27 +61,14 @@ public partial class turnManager : Node
 	
 	public void playerTurn(){
 		currentTurn = Turn.PT;
-		root.dialogue.Visible = false;
-
-		root.sword_slash.Visible = true;
-		root.sword_slash.AddThemeColorOverride("font_color", root.red);
 		root.chosenAction = 101;
-		root.shield.Visible = true;
-		root.shield.AddThemeColorOverride("font_color", root.black);
-		root.hydro_pump.Visible = true;
-		root.hydro_pump.AddThemeColorOverride("font_color", root.black);
-		root.arrows.Visible = true;
-		root.arrows.AddThemeColorOverride("font_color", root.black);
-		root.fire_pierce.Visible = true;
-		root.fire_pierce.AddThemeColorOverride("font_color", root.black);
-		root.electric_hammer.Visible = true;
-		root.electric_hammer.AddThemeColorOverride("font_color", root.black);
+		uim.menuVisible(true);
 
 	}
 
 	public void enemyTurn(){
 		currentTurn = Turn.ET;
-		root.dialogue.Text = $"IT'S {root.enemy.Name}'s TURN!";
+		uim.dialogueBoxText($"IT'S {root.enemy.Name}'s TURN!");
 
 		do{
 			int move = rng.Next(1,4);

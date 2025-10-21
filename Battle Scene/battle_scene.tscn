@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cigknjjn3y0ua"]
+[gd_scene load_steps=9 format=3 uid="uid://cigknjjn3y0ua"]
 
 [ext_resource type="Script" uid="uid://bmtf3x5e1n8fd" path="res://Battle Scene/Root.cs" id="1_rakm7"]
 [ext_resource type="Texture2D" uid="uid://d2018jkrli7pw" path="res://Assets/New_Background.png" id="2_8o2ys"]
-[ext_resource type="Texture2D" path="res://Battle Scene/Monster 1.png" id="3_bga4j"]
 [ext_resource type="Texture2D" uid="uid://bu2e474sh8wsg" path="res://Assets/UI.png" id="3_r2yst"]
 [ext_resource type="FontFile" uid="uid://cakwxvolnnb7v" path="res://Battle Scene/alagard.ttf" id="4_ve0ry"]
+[ext_resource type="Texture2D" uid="uid://dleekwlptduun" path="res://Assets/Monster 1.png" id="5_8o2ys"]
+[ext_resource type="Script" uid="uid://dni1xokqguymi" path="res://Battle Scene/UIManager.cs" id="5_r2yst"]
 [ext_resource type="Script" uid="uid://cwe6opm40ql6s" path="res://Battle Scene/character.cs" id="6_iloge"]
 [ext_resource type="Script" uid="uid://cccitlany5upr" path="res://Battle Scene/turnManager.cs" id="7_hxn0f"]
 
@@ -193,10 +194,14 @@ theme_override_fonts/font = ExtResource("4_ve0ry")
 theme_override_font_sizes/font_size = 12
 text = "Firebolt"
 
+[node name="UIManager" type="Node" parent="background/ui"]
+script = ExtResource("5_r2yst")
+
 [node name="monster" type="Sprite2D" parent="background"]
+unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(125, 70)
-texture = ExtResource("3_bga4j")
+texture = ExtResource("5_8o2ys")
 
 [node name="character" type="Node" parent="."]
 script = ExtResource("6_iloge")
