@@ -1,155 +1,230 @@
 using Godot;
 using System;
 
+/// <summary>
+/// Το κεντρικό class που διαχειρίζεται τη λογική της μάχης. Είναι υπεύθυνο για τη διαχείριση της κατάσταση της μάχης,
+/// τη δημιουργία των χαρακτήρων και την επικοινωνία μεταξύ των διάφορων managers (UIManager, TurnManager).
+/// </summary>
 public partial class Root : Node
 {
 
-	public Root rootNode;
-	public UIManager uim;
-	public turnManager TM;  
+//-- Αναφορές στου managers -- 
+	private UIManager uim;
+	private turnManager TM;
+
+//-- Αντικείμενα της μάχης --- 
 	public character player;
 	public character helper;
 	public character enemy;
 
-	public int chosenAction = 101; //Η μεταβλητή που περιέχει τον αριθμό της κίνησης του παίκτη
-	public move moveInstance;
+// --Εσωτερική Κατάσταση και Βοηθητικά Αντικείμενα -- 
+	private move moveInstance;
 	public movePrediction predictor;
-	public int dmg, hp;
-	public string dialogue1, dialogue2, attacker, defender;
-	public int monsterId;
-	public int dialogueFlow = 0;
-
-	//public int helperChosenAction =0;
-	//public int [] helperAction = {106, 107, 108, 109, 202, 203, 204, 301, 302};
-	//public Button helper_action;
-	public int turnNumber = 0; //for testing 
+	public int chosenAction = 101;  // Το ID της κίνησης που εκτελείται. Αρχικοποιείται στην πρώτη κίνηση του παίκτη.
+	public int monsterId;           // Το ID του τέρατος για τη συγκεκριμένη μάχη.
+	public int dialogueFlow = 0;    // Μεταβλητή για τη διαχείριση της ροής των διαλόγων στο τέλος της μάχης.
 	private Random rng = new Random();
 
+	/// <summary>
+	/// Καλείται μια φορά όταν η σκηνή είναι έτοιμη. Εδώ κάνουμε την αρχικοποίηση.
+	/// </summary>
 	public override void _Ready()
 	{
-
-		rootNode = GetNode<Root>(".");
+		// Παίρνουμε τις αναφοές στου κόμβους των managers από τη σκηνή.
 		uim = GetNode<UIManager>("background/ui/UIManager");
 		TM = GetNode<turnManager>("turnManager");
+
+		// Δημιουργούμε τους χαρακτήρες και ετοιμάζουμε το UI.
 		LoadFighters();
 		uim.dialogueBoxText("THE BATTLE BEGINS. PRESS ENTER!");
-		
-		//-- Για testing των κινήσεων του Helper -- 
-		//helper_action = GetNode<Button>("background/ui/bot_action");
-		//helper_action.FocusMode = Control.FocusModeEnum.None;
-		//helper_action.Pressed += buttonPressed;
 	}
 
-	public void LoadFighters(){
+	/// <summary>
+	/// Δημιουργεί τα αντικείμενα των χαρακτήρων (player, helper, enemy) αντλώντας τα δεδομένα από τον GameManager και 
+	/// δίνει εντολή στο UIManager να εμφανίσει πληροφορίες γι' αυτούς στο UI.
+	/// </summary>
+	public void LoadFighters()
+	{
 		var gm = GameManager.Instance;
-		monsterId = gm.Monster;
+		monsterId = gm.Monster;        // Παίρνουμε το ID του τέρατος.
+
+		// Δημιουργούμε τα αντικείμενα των χαρακτήρων με τα στατιστικά τους.
 		enemy = new character(gm.enemyName, gm.monsterHp, gm.monsterCHp, gm.monsterAtk, gm.monsterDef, gm.monsterSpAtk, gm.monsterSpDef, gm.monsterSpd, gm.monsterVul, gm.monsterRes);
-		player = new character(gm.playerName, 30, gm.playerCHp, 12, 10, 10, 12, 10, 0, 0 );
+		player = new character(gm.playerName, 30, gm.playerCHp, 12, 10, 10, 12, 10, 0, 0);
 		helper = new character(gm.helperName, 30, gm.helperCHp, 10, 10, 12, 12, 10, 0, 0);
 
+		// Δίνουμε εντολή στο UIManager να ρυθμίσει το UI και το Sprite του τέρατος.
 		uim.monsterSpriteSetUp(monsterId);
 		uim.boxUiSetUp(gm.playerName, gm.helperName, gm.playerCHp, gm.helperCHp);
 	}
 
-	public override void _Input(InputEvent @event){
-		if(@event.IsActionPressed("ui_cancel")){ GetTree().Quit(); }
+/// <summary>
+/// Η κεντρική μέθοδος που διαχειρίζεται την είσοδο του παίκτη και τη ροή της μάχης. Λειτουργεί ως μια μηχανή καταστάσεων
+/// με βάση το state του turnManager.
+/// </summary>
+	public override void _Input(InputEvent @event)
+	{
+		// Επιλογή για έξοδο από το παιχνίδι.
+		if (@event.IsActionPressed("ui_cancel")) { GetTree().Quit(); }
 
-		if (@event.IsActionPressed("ui_accept")){
-			if (TM.state == turnManager.State.NS){
-				uim.hpUIUpdate(player.CHP, helper.CHP);
-				TM.TurnHandler();
-				TM.state = turnManager.State.MD;
-			} else if (TM.state == turnManager.State.MD) {
+		// Ο κύριος έλεγχος γίνεται όταν ο παίκτης πατήσει "Enter".
+		if (@event.IsActionPressed("ui_accept"))
+		{
+			// -- Κατάσταση NS (No State ) -- 
+			// Ο παίκτης πατάει Enter για να προχωρήσει στον επόμενο γύρο.
+			if (TM.state == turnManager.State.NS)
+			{
+				uim.hpUIUpdate(player.CHP, helper.CHP);  //Ενημερώνουμε το UI που δείχνει το HP πριν ξεκινήσει η σειρά.
+				TM.TurnHandler();                       // Λέμε στον turnManager να αποφασίσει ποιος παίζει.
+				TM.state = turnManager.State.MD;        // Αλλάζουμε την κατάσταση σε "Move Delcaration"
+			}
+
+			// -- Κατάσταση MD (Move Declaration) --
+			// Έχει επιλαγεί η κίνηση και την εκτελούμε.
+			else if (TM.state == turnManager.State.MD)
+			{
+				// Εκτελείται μια διαφορετική λογική ανάλογα τον χαρακτήρα που έχει σειρά.
 				if (TM.currentTurn == turnManager.Turn.PT)
 				{
+					// Δημιουργούμε και αρχικοποιούμε το αντικείμενο της κίνησης το οποίο εκτελεί τους υπολογισμούς 
+					// των αποτελεσμάτων της.
 					moveInstance = new move(chosenAction, player, helper, enemy, 1, TM.counter);
 					moveInstance.executeAction();
-					uim.menuVisible(false);
+					uim.menuVisible(false);   // Κρύβουμε το menu των κινήσεων του παίκτη.
 				}
 				else if (TM.currentTurn == turnManager.Turn.HT)
 				{
+					// Για τον βοηθό, καλούμε το σύστημα επιλογής κινήσεων ώστε να επιλεχθεί η καλύτερη κίνηση.
 					chosenAction = moveChooser(player, helper, enemy, TM.counter, monsterId);
 					moveInstance = new move(chosenAction, player, helper, enemy, 2, TM.counter);
 					moveInstance.executeAction();
 				}
 				else if (TM.currentTurn == turnManager.Turn.ET)
 				{
-					int op = rng.Next(1, 3);
-					op = op + 2;
-					if (TM.losses == turnManager.Losses.HL) { op = 3; }
+					// Ο αντίπαλος επιτίθεται σε έναν τυχαίο στόχο (3: Παίκτης, 4: Βοηθός)
+					int op = rng.Next(3, 5);
+					if (TM.losses == turnManager.Losses.HL) { op = 3; } // Αν ο βοηθός έχει ηττηθεί, επιτίθεται στον παίκτη.
 					moveInstance = new move(chosenAction, player, helper, enemy, op, TM.counter);
 					moveInstance.executeAction();
 				}
-				
+				// Εμφανίζεται ο διάλογος που ανακοινώνει την κίνηση που εκτελείται.
 				uim.dialogueBoxText(moveInstance.mdDialogue);
-				if (moveInstance.counterWasActive == false){
-					TM.state = turnManager.State.AM;
-				} else {
+
+				// Ελέγχουμε αν η κίνηση απέτυχε λόγω ενεργού counter.
+				if (moveInstance.counterWasActive == false) { TM.state = turnManager.State.AM; } //Αν πέτυχε, πάμε στην κατάσταση "Aftermath"
+				else
+				{
+					//Αν απέτυχε, γυρνάμε στην αρχή και ο γύρος επανλαμβάνεται.
 					TM.state = turnManager.State.NS;
 					TM.currentTurn = TM.previousTurn;
 				}
-			} else if (TM.state == turnManager.State.AM){
+			}
+
+			// -- Κατάσταση AM (Aftermath) -- 
+			// Εμφανίζουμε το αποτέλεσμα της κίνησης.
+			else if (TM.state == turnManager.State.AM)
+			{
 				uim.dialogueBoxText(moveInstance.amDialogue);
-				TM.counterHandler();
-				turnNumber = turnNumber + 1;
-			} else if (TM.state == turnManager.State.ST){
-				if (TM.losses == turnManager.Losses.PL){
-					if (dialogueFlow == 0){
+				TM.counterHandler();  // Λέμε στο turnManager να ενημερώσει τους μετρητές και να ελέγξει για ειδικές καταστάσεις.
+			}
+
+			// -- Κατάσταση ST (Special State) --
+			// Διαχειριζόμαστε τα σενάρια που αλλάζουν δραστικά το παιχνίδι (νίκη, ήττα, απομάκρυνση του βοηθού)
+			else if (TM.state == turnManager.State.ST)
+			{
+				if (TM.losses == turnManager.Losses.PL)
+				{
+					if (dialogueFlow == 0)
+					{
 						uim.dialogueBoxText($"AFTER A HEROIC BATTLE {player.Name} LOST. BETTER LUCK NEXT TIME!");
 						dialogueFlow = 1;
-					} else if (dialogueFlow == 1) { GetTree().Quit(); }
-				} else if (TM.losses == turnManager.Losses.HL) {
-					if (dialogueFlow == 0){
-						uim.dialogueBoxText($"{helper.Name} TRIED THEIR BEST BUT THE BATTLE WAS TO FIERCE FOR THEM!");
-						TM.state = turnManager.State.NS;
 					}
-				} else if (TM.losses == turnManager.Losses.EL){
-					if (dialogueFlow == 0){
+					else if (dialogueFlow == 1) { GetTree().Quit(); } // Το παιχνίδι τελειώνει.
+				}
+				else if (TM.losses == turnManager.Losses.HL)
+				{
+					if (dialogueFlow == 0)
+					{
+						uim.dialogueBoxText($"{helper.Name} TRIED THEIR BEST BUT THE BATTLE WAS TO FIERCE FOR THEM!");
+						TM.state = turnManager.State.NS; 
+					}
+				}
+				else if (TM.losses == turnManager.Losses.EL)
+				{
+					if (dialogueFlow == 0)
+					{
 						uim.dialogueBoxText($"YOUR PERSEVERANCE PAID OFF. YOU WIN!");
 						dialogueFlow = 1;
-					} else if (dialogueFlow == 1) { GoToEnemySelection(); }
+					}
+					else if (dialogueFlow == 1) { GoToEnemySelection(); } // Πάμε στη επιλογή αντιπάλου για την εκκίνηση της επόμενης μάχης.
 				}
 			}
 		}
-
-
-		if (TM.state == turnManager.State.MD){  //Αν το dialogue box = Move Decleration
-
-			if (TM.currentTurn == turnManager.Turn.PT){    //Αν το Current Turn = Player Turn
-				if (@event.IsActionPressed("ui_right")){ chosenAction = uim.menuHandler(chosenAction, "right"); }
-
-				if (@event.IsActionPressed("ui_left")){ chosenAction = uim.menuHandler(chosenAction, "left"); }
-
-				if (@event.IsActionPressed("ui_up")){ chosenAction = uim.menuHandler(chosenAction, "up");}
-
-				if (@event.IsActionPressed("ui_down")){ chosenAction = uim.menuHandler(chosenAction, "down"); }
-		 }  } }
-		
-
-
-	public void GoToEnemySelection(){
-		if(helper.CHP < 1){
-			helper.CHP = 1;
-		}
-		var gm = GameManager.Instance;
-		gm.playerCHp = player.CHP;
-		gm.helperCHp =  helper.CHP;
-		gm.firstBattle = false;
-
-
-		var nextScene = (PackedScene)ResourceLoader.Load("res://Enemy Selection/enemy_selection.tscn");
-
-		if (nextScene != null) {
-			GetTree().ChangeSceneToPacked(nextScene);
-		}
 	}
 
-	//public void buttonPressed(){
-	//	helperChosenAction = (helperChosenAction %9) +1;
-	//	updateButtonText();
-	//}
 
-	/*public void updateButtonText(){
+/// <summary>
+/// Προετοιμάζει την κατάσταση του παιχνιδιού για την επόμενη μάχη και αλλάζει την σκηνή στην σκηνή επιλογής αντιπάλου.
+/// </summary>
+	public void GoToEnemySelection()
+	{
+		if (helper.CHP < 1) { helper.CHP = 1; } //Αν ο βοηθός έχει ηττηθεί, τον επαναφέρουμε στους 1 πόντους ζωής 
+
+		var gm = GameManager.Instance;
+		// Ενημερώνουμε τις τιμές του GameManager για τους τρέχοντες πόντους ζωής του παίκτη και του βοηθού και ορίζει το 
+		// flag που σηματοδοτεί αν πρόκειται για την πρώτη μάχη του παιχνιδιού ως false.
+		gm.playerCHp = player.CHP;
+		gm.helperCHp = helper.CHP;
+		gm.firstBattle = false;
+
+		// Φορτώνουμε την σκηνή επιλογής αντιπάλου και αν φορτώθηκε σωστά αλλάζουμε την σκηνή.
+		var nextScene = (PackedScene)ResourceLoader.Load("res://Enemy Selection/enemy_selection.tscn");
+		if (nextScene != null) { GetTree().ChangeSceneToPacked(nextScene); }
+	}
+
+/// <summary>
+/// Η συνάρτηση που θα δημιουργήσει το αντικείμενο επιλογής κινήσεων. Επιστρέφει την την κίνηση που κρίνεται ως η βέλτιστη.
+/// </summary>
+	public int moveChooser(character player, character helper, character enemy, int[] counters, int chosenEnemy)
+	{
+		// Ορίζουμε τους πίνακες με όλα τα αναγνωριστικά των κινήσεων του βοηθού και των 4 αντιπάλων.
+		int[] helperActions = { 106, 107, 108, 109, 202, 203, 204, 301, 302 };
+		int[] enemyActions;
+
+		switch (chosenEnemy)
+		{
+			case 1:
+				enemyActions = new int[] { 205, 110, 110, 111, 111, 111, 111 };
+				break;
+			case 2:
+				enemyActions = new int[] { 206, 112, 112, 113, 113, 113, 113 };
+				break;
+			case 3:
+				enemyActions = new int[] { 207, 115, 115, 114, 114, 114, 114 };
+				break;
+			default:
+				enemyActions = new int[] { 208, 116, 116, 303 };
+				break;
+		}
+
+		// Δημιουργούμε το αντικείμενο της κλάσης 'movePrediction' δίνοντας του την τρέχουσα κατάσταση της μάχης.
+		predictor = new movePrediction(player, helper, enemy, chosenEnemy, counters, helperActions, enemyActions);
+		// Καλούμε την μέθοδο του συστήματος που θα κάνει τους υπολογισούμε και θα επιστρέψει την καλύτερη κίνηση.
+		int result = predictor.chooseBestAction();
+		//Επιστρέφουμε το αποτέλεσμα.
+		return result;
+
+	}
+}
+
+//-- ΚΩΔΙΚΑΣ ΓΙΑ TESTING: ΚΙΝΗΣΕΙΣ ΤΟΥ ΒΟΗΘΟΥ-- 
+/*
+	public void buttonPressed(){
+		helperChosenAction = (helperChosenAction %9) +1;
+		updateButtonText();
+	}
+
+	public void updateButtonText(){
 		switch(helperChosenAction){
 			case 0:
 				helper_action.Text = "FIREBOLT";
@@ -179,32 +254,16 @@ public partial class Root : Node
 				helper_action.Text = "HEAL SELF";
 				break;
 		}
-	} */
-
-	public int moveChooser(character player, character helper, character enemy, int[] counters, int chosenEnemy){
-		int [] helperActions = {106, 107, 108, 109, 202, 203, 204, 301, 302};
-		int [] enemyActions;
-		
-		switch(chosenEnemy){
-			case 1:
-				enemyActions = new int[] { 205, 110, 110, 111, 111, 111, 111};
-				break;
-			case 2:
-				enemyActions = new int[] { 206, 112, 112, 113, 113, 113, 113};
-				break;
-			case 3:
-				enemyActions = new int[] { 207, 115, 115, 114, 114, 114, 114};
-				break;
-			default:
-				enemyActions = new int[] { 208, 116, 116, 303};
-				break;
-		}
-		
-		predictor = new movePrediction(player, helper, enemy, chosenEnemy, counters, helperActions, enemyActions);
-		int result = predictor.chooseBestAction();
-
-		return result;
-
-	}
-}
+	} 
 	
+-- ΕΝΤΟΛΕΣ ΠΟΥ ΜΠΑΙΝΟΥΝ ΣΤΗΝ _Ready() --
+		helper_action = GetNode<Button>("background/ui/bot_action");
+		helper_action.FocusMode = Control.FocusModeEnum.None;
+		helper_action.Pressed += buttonPressed;
+
+-- ΔΗΛΩΣΕΙΣ -- 
+	public int helperChosenAction =0;
+	public int [] helperAction = {106, 107, 108, 109, 202, 203, 204, 301, 302};
+	public Button helper_action;
+	
+	*/

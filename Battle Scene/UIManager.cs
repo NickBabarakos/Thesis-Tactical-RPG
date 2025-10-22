@@ -3,6 +3,9 @@ using System;
 
 public partial class UIManager : Node
 {
+	private turnManager TM;
+	private Root root;
+
 	private Texture2D Sprite1;
 	private Texture2D Sprite2;
 	private Texture2D Sprite3;
@@ -30,6 +33,9 @@ public partial class UIManager : Node
 
 	public override void _Ready()
 	{
+		TM = GetNode<turnManager>($"../../../turnManager");
+		root = GetTree().CurrentScene as Root;
+
 		monsterSprite = GetNode<Sprite2D>("%monster");
 		Sprite1 = GD.Load<Texture2D>("res://Assets/Monster 1.png");
 		Sprite2 = GD.Load<Texture2D>("res://Assets/Monster 2.png");
@@ -237,9 +243,27 @@ public partial class UIManager : Node
 		}
 		return chosenAction;
 	}
-	
+
 	public void dialogueBoxText(string dial)
 	{
 		dialogue.Text = dial;
+	}
+	
+	public override void _Input(InputEvent @event)
+	{
+		if (TM.state == turnManager.State.MD)
+		{
+
+			if (TM.currentTurn == turnManager.Turn.PT)
+			{
+				if (@event.IsActionPressed("ui_right")) { root.chosenAction = menuHandler(root.chosenAction, "right"); }
+
+				if (@event.IsActionPressed("ui_left")) { root.chosenAction = menuHandler(root.chosenAction, "left"); }
+
+				if (@event.IsActionPressed("ui_up")) { root.chosenAction = menuHandler(root.chosenAction, "up"); }
+
+				if (@event.IsActionPressed("ui_down")) { root.chosenAction = menuHandler(root.chosenAction, "down"); }
+			}
+		}
 	}
 }
