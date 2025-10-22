@@ -1,13 +1,9 @@
 using Godot;
 using System;
-using System.Collections.Generic;
-using System.Text.Json;
-using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Reflection;
 
-public partial class move : Node
+public class move 
 {
 
 	private baseMoveData moveData;
@@ -52,8 +48,7 @@ public partial class move : Node
 		get { return _counter; }
 		set { _counter = value; }
 	}
-
-	private int moveDmg, moveHP; 
+ 
 	public string mdDialogue, amDialogue;
 	private character Attacker, Defender;
 	public bool counterWasActive;
@@ -107,25 +102,16 @@ public partial class move : Node
 	}
 
 	public void attackCalculations(attackMoveData data){
-		int spdMod = speedComparison(data);
-		float vulResMod = vulResCalc(data);
-		int moveDmg = atkPow(data, spdMod, vulResMod);
+
+		int moveDmg = dmgCalculator.GetFinalDmg(Attacker, Defender, data);
 
 		if (data.moveNumber == 111 || data.moveNumber == 113 || data.moveNumber == 114)
 		{
 			int rn = rng.Next(1,3);
-			if (rn == 1)
-			{
+			if (rn == 1) {
 				moveDmg = (int)Math.Ceiling(moveDmg + 0.25 * moveDmg);
-				if (data.moveNumber == 113)
-				{
-					moveDmg = moveDmg + 1;
-				} 
-			}
-			else if (rn == 2)
-			{
-				moveDmg = (int)Math.Ceiling(moveDmg - 0.25 * moveDmg);
-			}
+				if (data.moveNumber == 113) { moveDmg = moveDmg + 1; } 
+			} else if (rn == 2) { moveDmg = (int)Math.Ceiling(moveDmg - 0.25 * moveDmg); }
 		}
 		
 		mdDialogue = $"{Attacker.Name} {data.dialogue1} {Defender.Name} {data.dialogue2}";
@@ -145,217 +131,48 @@ public partial class move : Node
 
 	public void hpCalculations(statMoveData data){
 		counterWasActive = false;
-			moveHP = (rng.Next(1,4)) * 2;
-
-			if (data.moveTarget == "Player")
-			{
-				Player.CHP = Player.CHP + moveHP;
-				if (Player.CHP > Player.HP)
-				{
-					moveHP = Player.HP - Player.CHP + moveHP;
-					Player.CHP = Player.HP;
-				}
-				mdDialogue = $"{Helper.Name} {data.dialogue1} {Player.Name}";
-				amDialogue = $"{Player.Name} {data.dialogue2} {moveHP} HP!";
-			}
-			else if (data.moveTarget == "Helper")
-			{
-				Helper.CHP = Helper.CHP + moveHP;
-				if (Helper.CHP > Helper.HP)
-				{
-					moveHP = Helper.HP - Helper.CHP + moveHP;
-					Helper.CHP = Helper.HP;
-				}
-				mdDialogue = $"{Helper.Name} {data.dialogue1}";
-				amDialogue = $"{Helper.Name} {data.dialogue2} {moveHP} HP!";
-			}
-			else if (data.moveTarget == "Enemy")
-			{
-				moveHP = moveHP * 2;
-				Enemy.CHP = Enemy.CHP + moveHP;
-				if (Enemy.CHP > Enemy.HP)
-				{
-					moveHP = Enemy.HP - Enemy.CHP + moveHP;
-					Enemy.CHP = Enemy.HP;
-				}
-				mdDialogue = $"{Enemy.Name} {data.dialogue1}";
-				amDialogue = $"{Enemy.Name} {data.dialogue2} {moveHP} HP!";
-			}
-	}
-
-	public void statCalculations(statMoveData data)
-	{
-		string stat0 = "";
-		string stat1 = "";
 
 		character Target = null;
-		if (data.moveTarget == "Player")
-		{
-			Target = Player;
-		}
-		else if (data.moveTarget == "Enemy")
-		{
-			Target = Enemy;
-		}
-		else if (data.moveTarget == "Helper")
-		{
-			Target = Helper;
-		}
 
-		string[] stats = data.moveStat.Split(' ');
-		stat0 = stats[0];
-		if (Counter[data.moveCounter] == 0)
-		{
-			PropertyInfo propertyInfo = typeof(character).GetProperty(stat0);
-			int currentValue = (int)propertyInfo.GetValue(Target);
-			propertyInfo.SetValue(Target, currentValue + data.movePower);
-			Counter[data.moveCounter] = 1;
+		if (data.moveTarget == "Player") { Target = Player; }
+		else if (data.moveTarget == "Helper") { Target = Helper; }
+		else if (data.moveTarget == "Enemy") { Target = Enemy; }
+		else { GD.PushWarning("Δεν βρέθηκε χαρακτήρας"); }
+
+		int moveHP = hpCalculator.ApplyHeal(Target, data);
+
+		if (data.moveTarget == "Player") {
+			mdDialogue = $"{Helper.Name} {data.dialogue1} {Player.Name}";
+			amDialogue = $"{Player.Name} {data.dialogue2} {moveHP} HP!"; 
+		} else if (data.moveTarget == "Helper") {
+			mdDialogue = $"{Helper.Name} {data.dialogue1}";
+			amDialogue = $"{Helper.Name} {data.dialogue2} {moveHP} HP!"; 
+		} else if (data.moveTarget == "Enemy") {
+			mdDialogue = $"{Enemy.Name} {data.dialogue1}";
+			amDialogue = $"{Enemy.Name} {data.dialogue2} {moveHP} HP!";
+		} else { GD.PushWarning("Δεν βρέθηκε χαρακτήρας"); }
+	}
+
+	public void statCalculations(statMoveData data){
+		character Target = null;
+
+		if (data.moveTarget == "Player") { Target = Player; }
+		else if (data.moveTarget == "Helper") { Target = Helper; }
+		else if (data.moveTarget == "Enemy") { Target = Enemy; }
+		else { GD.PushWarning("Δεν βρέθηκε χαρακτήρας"); }
+
+		GD.Print($"DEF before {Player.DEF}");
+		bool success = statChangeCalculator.ApplyStatChange(Target, data, Counter);
+		GD.Print($"DEF after {Player.DEF}");
+
+		if (success) {
 			counterWasActive = false;
-
-			if (stats.Length == 2)
-			{
-				stat1 = stats[1];
-				propertyInfo = typeof(character).GetProperty(stat1);
-				currentValue = (int)propertyInfo.GetValue(Target);
-				propertyInfo.SetValue(Target, currentValue + data.movePower);
-			}
-		}
-		else
-		{
-			counterWasActive = true;
-		}
-
-
-		if (counterWasActive == true)
-		{
-			mdDialogue = data.dialogue3;
-		}
-		else
-		{
 			mdDialogue = $"{Attacker.Name} {data.dialogue1}";
 			amDialogue = $"{Target.Name} {data.dialogue2}";
-			}
-	}
-	
-	private int speedComparison(attackMoveData data)
-	{
-		if (Attacker.SPD > (Defender.SPD + data.moveDelay))
-		{
-			return 1;
+		} else {
+			counterWasActive = true;
+			mdDialogue = data.dialogue3;
 		}
-		else if (Attacker.SPD == (Defender.SPD + data.moveDelay))
-		{
-			return 0;
-		}
-		else if (Attacker.SPD < (Defender.SPD + data.moveDelay))
-		{
-			return -1;
-		}
-		GD.Print("Error in SpeedComparison");
-		return 0;
 	}
 
-	private float vulResCalc(attackMoveData data)
-	{
-		int x, y;
-		string vul = Defender.VUL.ToString();
-		string res = Defender.RES.ToString();
-		string atk = data.moveDmgType.ToString();
-		int vulLen = vul.Length;
-		int resLen = res.Length;
-		int atkLen = atk.Length;
-		int atkRes = 0;
-		int atkVul = 0;
-
-		for (x = 0; x < atkLen; x++)
-		{
-			for (y = 0; y < vulLen; y++)
-			{
-				if (vul[y] == atk[x])
-				{
-					atkVul = atkVul + 1;
-				}
-			}
-		}
-
-		for (x = 0; x < atkLen; x++)
-		{
-			for (y = 0; y < resLen; y++)
-			{
-				if (res[y] == atk[x])
-				{
-					atkRes = atkRes + 1;
-				}
-			}
-		}
-		atkRes = atkRes - atkVul;
-
-		switch (atkRes)
-		{
-			case 2:
-				return 0.25f;
-			case 1:
-				return 0.5f;
-			case 0:
-				return 1.0f;
-			case -1:
-				return 2.0f;
-			case -2:
-				return 4.0f;
-
-		}
-
-		GD.Print("Error in Vul-Res calculations");
-		return 0;
-
-	}
-
-	private int atkPow(attackMoveData data, int spdMod, float vulResMod)
-	{
-		int atk_pow = 0;
-		int x;
-		string atk = data.moveDmgType.ToString();
-		bool special = false;
-		bool physical = false;
-		int moveDmgCategory = 0;
-
-		for (x = 0; x < atk.Length; x++)
-		{
-			if (Regex.IsMatch(atk[x].ToString(), "[1-6]") && special == false)
-			{
-				moveDmgCategory = moveDmgCategory + 1;
-				special = true;
-			}
-
-			if (Regex.IsMatch(atk[x].ToString(), "[7-9]") && physical == false)
-			{
-				moveDmgCategory = moveDmgCategory + 2;
-				physical = true;
-			}
-		}
-
-
-		if (moveDmgCategory == 2)
-		{
-			atk_pow = (int)Math.Ceiling((Attacker.ATK - 0.5 * Defender.DEF) + data.movePower);
-		}
-		else if (moveDmgCategory == 1)
-		{
-			atk_pow = (int)Math.Ceiling((Attacker.SP_ATK - 0.5 * Defender.SP_DEF) + data.movePower);
-		}
-		else if (moveDmgCategory == 3)
-		{
-			atk_pow = (int)Math.Ceiling(0.5 * (Attacker.ATK - 0.5 * Defender.DEF) + 0.5 * (Attacker.SP_ATK - 0.5 * Defender.SP_DEF) + data.movePower);
-		}
-
-		atk_pow = (int)Math.Ceiling((atk_pow * vulResMod + 0.25 * (atk_pow * spdMod)) * 0.5);
-
-		if (atk_pow == 0){
-			atk_pow = 1;
-		}
-		
-		return atk_pow;
-	}
-
-
-	 }
+ }
