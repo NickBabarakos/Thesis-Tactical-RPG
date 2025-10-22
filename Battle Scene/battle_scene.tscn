@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cigknjjn3y0ua"]
+[gd_scene load_steps=8 format=3 uid="uid://cigknjjn3y0ua"]
 
 [ext_resource type="Script" uid="uid://bmtf3x5e1n8fd" path="res://Battle Scene/Root.cs" id="1_rakm7"]
 [ext_resource type="Texture2D" uid="uid://d2018jkrli7pw" path="res://Assets/New_Background.png" id="2_8o2ys"]
@@ -6,7 +6,6 @@
 [ext_resource type="FontFile" uid="uid://cakwxvolnnb7v" path="res://Battle Scene/alagard.ttf" id="4_ve0ry"]
 [ext_resource type="Texture2D" uid="uid://dleekwlptduun" path="res://Assets/Monster 1.png" id="5_8o2ys"]
 [ext_resource type="Script" uid="uid://dni1xokqguymi" path="res://Battle Scene/UIManager.cs" id="5_r2yst"]
-[ext_resource type="Script" uid="uid://cwe6opm40ql6s" path="res://Battle Scene/character.cs" id="6_iloge"]
 [ext_resource type="Script" uid="uid://cccitlany5upr" path="res://Battle Scene/turnManager.cs" id="7_hxn0f"]
 
 [node name="root" type="Node2D"]
@@ -202,9 +201,6 @@ unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(125, 70)
 texture = ExtResource("5_8o2ys")
-
-[node name="character" type="Node" parent="."]
-script = ExtResource("6_iloge")
 
 [node name="turnManager" type="Node" parent="."]
 script = ExtResource("7_hxn0f")

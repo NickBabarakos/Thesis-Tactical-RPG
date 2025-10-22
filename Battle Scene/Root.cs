@@ -83,30 +83,35 @@ public partial class Root : Node
 			// Έχει επιλαγεί η κίνηση και την εκτελούμε.
 			else if (TM.state == turnManager.State.MD)
 			{
-				// Εκτελείται μια διαφορετική λογική ανάλογα τον χαρακτήρα που έχει σειρά.
-				if (TM.currentTurn == turnManager.Turn.PT)
-				{
-					// Δημιουργούμε και αρχικοποιούμε το αντικείμενο της κίνησης το οποίο εκτελεί τους υπολογισμούς 
-					// των αποτελεσμάτων της.
-					moveInstance = new move(chosenAction, player, helper, enemy, 1, TM.counter);
-					moveInstance.executeAction();
-					uim.menuVisible(false);   // Κρύβουμε το menu των κινήσεων του παίκτη.
-				}
+
+				int attackPattern = 0;
+				if (TM.currentTurn == turnManager.Turn.PT) { attackPattern = 1; }
 				else if (TM.currentTurn == turnManager.Turn.HT)
 				{
-					// Για τον βοηθό, καλούμε το σύστημα επιλογής κινήσεων ώστε να επιλεχθεί η καλύτερη κίνηση.
 					chosenAction = moveChooser(player, helper, enemy, TM.counter, monsterId);
-					moveInstance = new move(chosenAction, player, helper, enemy, 2, TM.counter);
-					moveInstance.executeAction();
+					attackPattern = 2;
 				}
 				else if (TM.currentTurn == turnManager.Turn.ET)
 				{
-					// Ο αντίπαλος επιτίθεται σε έναν τυχαίο στόχο (3: Παίκτης, 4: Βοηθός)
 					int op = rng.Next(3, 5);
-					if (TM.losses == turnManager.Losses.HL) { op = 3; } // Αν ο βοηθός έχει ηττηθεί, επιτίθεται στον παίκτη.
-					moveInstance = new move(chosenAction, player, helper, enemy, op, TM.counter);
-					moveInstance.executeAction();
+					if (TM.losses == turnManager.Losses.HL) { op = 3; }
+					attackPattern = op;
 				}
+
+				baseMoveData moveData = moveDataLoader.LoadMove(chosenAction);
+				if (moveData != null)
+				{
+					moveInstance = new move(moveData, player, helper, enemy, attackPattern, TM.counter);
+					moveInstance.executeAction();
+
+					if (TM.currentTurn == turnManager.Turn.PT) { uim.menuVisible(false); }
+				}
+				else{
+					GD.PushError($"Root Error: Αποτυχία φόρτωσης κίνησης. Επαναφοράς σειράς");
+					TM.state = turnManager.State.NS;
+					return;
+				}
+				
 				// Εμφανίζεται ο διάλογος που ανακοινώνει την κίνηση που εκτελείται.
 				uim.dialogueBoxText(moveInstance.mdDialogue);
 
