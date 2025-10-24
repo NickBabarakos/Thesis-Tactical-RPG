@@ -13,7 +13,6 @@ public partial class character : Node
 	private int _vul;
 	private int _res;
 	private int _cHp;
-	//public move moveInstance;
 
 	public string Name{
 		get {return _name;}

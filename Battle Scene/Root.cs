@@ -80,33 +80,40 @@ public partial class Root : Node
 			}
 
 			// -- Κατάσταση MD (Move Declaration) --
-			// Έχει επιλαγεί η κίνηση και την εκτελούμε.
+			// H κίνηση έχει επιλαγεί (ή θα επιλεχθεί) και την εκτελούμε
 			else if (TM.state == turnManager.State.MD)
 			{
-
+				// Καθορίζουμε ποιος επιτίθεται σε ποιον (attackPattern)
 				int attackPattern = 0;
 				if (TM.currentTurn == turnManager.Turn.PT) { attackPattern = 1; }
 				else if (TM.currentTurn == turnManager.Turn.HT)
 				{
+					//Καλούμε το σύστημα επιλογής κινήσεων για να επιλέξει την καλύτερη κίνηση για το βοηθό.
 					chosenAction = moveChooser(player, helper, enemy, TM.counter, monsterId);
 					attackPattern = 2;
 				}
 				else if (TM.currentTurn == turnManager.Turn.ET)
 				{
+					// Για τον εχθρό επιλέγουμε τυχαία τον στόχο του (3: Παίκτης, 4: Βοηθός)
 					int op = rng.Next(3, 5);
-					if (TM.losses == turnManager.Losses.HL) { op = 3; }
+					if (TM.losses == turnManager.Losses.HL) { op = 3; } //Αν έχει ηττηθεί ο βοηθός επιλέγουμε τον παίκτη.
 					attackPattern = op;
 				}
 
+				// Δημιουργούμε ένα αντικείμενο moveData, η μέθοδος LoadMove() διαβάζει το αντίστοιχο json αρχείο και 
+				// συμπληρώνει τις τιμές της κίνησης που θα εκτελεστεί.
 				baseMoveData moveData = moveDataLoader.LoadMove(chosenAction);
 				if (moveData != null)
 				{
+					// Δημιουργούμε ένα αντικείμενο move, που θα εκτελέσει την κίνηση, δίνοντας του τις απαραίτητες πληροφορίες.
 					moveInstance = new move(moveData, player, helper, enemy, attackPattern, TM.counter);
+					// Καλούμε την μέθοδο της move που θα ξεκινήσει την εκτέλεση της κίνησης. 
 					moveInstance.executeAction();
-
+					// Ενημερώνουμε το UI μόνο αν έπαιζε ο παίκτης για να κρύψουμε το menu επιλογών.
 					if (TM.currentTurn == turnManager.Turn.PT) { uim.menuVisible(false); }
 				}
 				else{
+					// Αν δεν φορτώθηκαν σωστά τα δεδομένα της κίνησης επαναφέρουμε την σειρά.
 					GD.PushError($"Root Error: Αποτυχία φόρτωσης κίνησης. Επαναφοράς σειράς");
 					TM.state = turnManager.State.NS;
 					return;
