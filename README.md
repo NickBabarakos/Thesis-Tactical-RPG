@@ -2,8 +2,8 @@
 This project is the practical implementation of my university thesis, titled "Development of a Video Game with an Integrated Move Selection System". It's a 2D turn-based tactical RPG built from the ground up in the **Godot Engine** using **C#**.
 
 ## Gameplace Showcase 
-![Gameplay Screenshot 1](Gameplay Screenshots\Gameplay 01.png)
-`![Gameplay Screenshot 2](Gameplay Screenshots\Gameplay 02.png)`
+![Gameplay Screenshot 1](Gameplay Screenshots/Gameplay 01.png)
+![Gameplay Screenshot 2](Gameplay Screenshots/Gameplay 02.png)
 
 ---
 
@@ -16,7 +16,7 @@ This project is the practical implementation of my university thesis, titled "De
     * Each with a unique set of moves and stats.
     * Designed with different RPG archetypes, requiring distinct strategies to defeat.
 
-## Battle System
+### Battle System
 *  **Deep Tactical Combat:** A turn-based system featuring **9 damage types** and **2 damafe categories** (Physical & Special).
 *  **Strategic Design:** The system is based on the principles of orthogonal unit differentiation and non-transistive relationships.
 
