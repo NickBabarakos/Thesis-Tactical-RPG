@@ -2,7 +2,6 @@
 This project is the practical implementation of my university thesis, titled "Development of a Video Game with an Integrated Move Selection System". It's a 2D turn-based tactical RPG built from the ground up in the **Godot Engine** using **C#**.
 
 ## Gameplace Showcase 
-![Gameplay Screenshot 1](Gameplay_Screenshots/Gameplay-01.png)
 ![Gameplay Screenshot 2](Gameplay_Screenshots/Gameplay-02.png)
 
 ---
