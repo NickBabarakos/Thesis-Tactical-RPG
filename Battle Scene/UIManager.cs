@@ -92,8 +92,8 @@ public partial class UIManager : Node
 	}
 	
 	/// <summary>
-    /// Αρχικοποιεί τα UI στοιχεία που δείχνουν τα ονόματα και το HP στην αρχή της μάχης.
-    /// </summary>
+	/// Αρχικοποιεί τα UI στοιχεία που δείχνουν τα ονόματα και το HP στην αρχή της μάχης.
+	/// </summary>
 	public void boxUiSetUp(string playerName, string helperName, int playerCHP, int helperCHP)
 	{
 		player_name.Text = playerName;
@@ -103,8 +103,8 @@ public partial class UIManager : Node
 	}
 
 	/// <summary>
-    /// Ενημερώνει τα labels που δείχνουν τους τρέχοντες πότνους ζωής του παίκτη και του βοηθού.
-    /// </summary>
+	/// Ενημερώνει τα labels που δείχνουν τους τρέχοντες πότνους ζωής του παίκτη και του βοηθού.
+	/// </summary>
 	public void hpUIUpdate(int playerCHP, int helperCHP)
 	{
 		if (playerCHP > 0)
@@ -167,8 +167,8 @@ public partial class UIManager : Node
 	}
 
 	/// <summary>
-    /// Διαχειρίζεται τις αλλαγές επιλογής κινήσεων του menu κινήσεων.
-    /// </summary>
+	/// Διαχειρίζεται τις αλλαγές επιλογής κινήσεων του menu κινήσεων.
+	/// </summary>
 	public int menuHandler(int chosenAction, string Key)
 	{
 		// H μέθοδος περιέχει όλη τη λογική για την πλοήγηση στο 2D menu των κινήσεων. Αλλάζουμε το χρώμα των labels για 
@@ -281,8 +281,8 @@ public partial class UIManager : Node
 	}
 	
 	/// <summary>
-    /// Διαχειρίζεται την είσοδο του παίκτη που σχετίζεται αποκλειστικά με το UI.
-    /// </summary>
+	/// Διαχειρίζεται την είσοδο του παίκτη που σχετίζεται αποκλειστικά με το UI.
+	/// </summary>
 	public override void _Input(InputEvent @event)
 	{
 		// Ενεργοποιείται μόνο όταν είμαστε στην φάση MD και είναι η σειρά του παίκτη.

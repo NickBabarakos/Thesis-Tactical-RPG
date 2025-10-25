@@ -61,8 +61,8 @@ public class move
 	private Random rng = new Random();
 
 	/// <summary>
-    /// O κατασκευαστής. Αρχικοποιεί το αντικείμενο της κίνησης με όλα τα απαραίτητα δεδομένα.
-    /// </summary>
+	/// O κατασκευαστής. Αρχικοποιεί το αντικείμενο της κίνησης με όλα τα απαραίτητα δεδομένα.
+	/// </summary>
 	public move(baseMoveData MoveData, character player, character helper, character enemy, int attack_pattern, int[] counter)
 	{
 		moveData = MoveData;
@@ -74,8 +74,8 @@ public class move
 	}
 
 	/// <summary>
-    /// H κύρια μέθοδος εκτέλεσης.
-    /// </summary>
+	/// H κύρια μέθοδος εκτέλεσης.
+	/// </summary>
 	public void executeAction()
 	{
 
@@ -152,8 +152,8 @@ public class move
 	}
 
 	/// <summary>
-    /// Διαχειρίζεται τη λογική μιας κίνησης επαναφοράς πόντων ζωής.
-    /// </summary>
+	/// Διαχειρίζεται τη λογική μιας κίνησης επαναφοράς πόντων ζωής.
+	/// </summary>
 	public void hpCalculations(statMoveData data)
 	{
 		counterWasActive = false;
@@ -189,8 +189,8 @@ public class move
 	}
 
 	/// <summary>
-    /// Διαχειρίζεται τη λογική για μια κίνηση αλλαγής στατιστικών.
-    /// </summary>
+	/// Διαχειρίζεται τη λογική για μια κίνηση αλλαγής στατιστικών.
+	/// </summary>
 	public void statCalculations(statMoveData data)
 	{
 		character Target = null;

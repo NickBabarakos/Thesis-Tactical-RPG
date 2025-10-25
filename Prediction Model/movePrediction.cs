@@ -82,8 +82,8 @@ public partial class movePrediction : Node
 	}
 
 	/// <summary>
-    /// Η κύρια μέθοδος του συστήματος. Εκτελεί τον αλγόριθμο αναζήτησης και επιστρέφει το ID της καλύτερης κίνησης.
-    /// </summary>
+	/// Η κύρια μέθοδος του συστήματος. Εκτελεί τον αλγόριθμο αναζήτησης και επιστρέφει το ID της καλύτερης κίνησης.
+	/// </summary>
 	public int chooseBestAction()
 	{
 		int i, k, j, number, sum, expectedValue, maxIndex, grade;
