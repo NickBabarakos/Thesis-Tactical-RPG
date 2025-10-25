@@ -24,6 +24,7 @@ GameManager="*res://GameManager.cs"
 
 window/size/viewport_width=240
 window/size/viewport_height=160
+window/size/mode=2
 window/size/initial_position_type=0
 window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"

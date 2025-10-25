@@ -36,3 +36,6 @@ This project is the practical implementation of my university thesis, titled "De
 ## Thesis Paper
 You can read the full academic paper on which this implementation was based **[here]()**
 
+---
+## Licence
+This project is licensed under the MIT License --see the [LICENSE](LICENSE) file for details.

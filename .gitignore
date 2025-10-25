@@ -13,7 +13,11 @@ obj/
 .vscode/
 
 export_presets.cfg
+*.exe
 *.pck
 *.export_presets
 *.zip
+
+data_*/
+
 
